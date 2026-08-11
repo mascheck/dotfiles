@@ -1,0 +1,15 @@
+# Curated package list for the terminal setup. Not a full machine dump.
+brew "neovim"
+brew "fzf"
+brew "zoxide"
+brew "eza"
+brew "bat"
+brew "ripgrep"
+brew "fd"
+brew "just"
+brew "lazygit"
+brew "git-delta"
+brew "starship"
+
+cask "ghostty"
+cask "font-jetbrains-mono-nerd-font"
