@@ -22,15 +22,38 @@
 
 ---
 
-### Task 1: `install.sh` — packages and symlink helper
+### Task 1: `Brewfile` + `install.sh` — packages and symlink helper
 
 **Files:**
+- Create: `Brewfile`
 - Create: `install.sh`
 
 **Interfaces:**
 - Produces: `link <absolute-src> <absolute-dst>` bash function; `$DOTFILES` variable (repo root). Later tasks append `link` lines to the `# --- symlinks ---` section.
 
-- [ ] **Step 1: Write `install.sh`**
+- [ ] **Step 1: Write `Brewfile`**
+
+Deliberately curated: only what this terminal setup needs — NOT a `brew bundle dump` of the machine. Do not add other installed software.
+
+```ruby
+# Curated package list for the terminal setup. Not a full machine dump.
+brew "neovim"
+brew "fzf"
+brew "zoxide"
+brew "eza"
+brew "bat"
+brew "ripgrep"
+brew "fd"
+brew "just"
+brew "lazygit"
+brew "git-delta"
+brew "starship"
+
+cask "ghostty"
+cask "font-jetbrains-mono-nerd-font"
+```
+
+- [ ] **Step 2: Write `install.sh`**
 
 ```bash
 #!/usr/bin/env bash
@@ -51,37 +74,29 @@ link() {
   echo "linked: $dst -> $src"
 }
 
-FORMULAE=(fzf zoxide eza bat ripgrep fd just lazygit git-delta starship)
-CASKS=(ghostty font-jetbrains-mono-nerd-font)
-
-for f in "${FORMULAE[@]}"; do
-  brew list --formula "$f" &>/dev/null || brew install "$f"
-done
-for c in "${CASKS[@]}"; do
-  brew list --cask "$c" &>/dev/null || brew install --cask "$c"
-done
+brew bundle --file "$DOTFILES/Brewfile"
 
 # --- symlinks ---
 ```
 
-- [ ] **Step 2: Make it executable and run it**
+- [ ] **Step 3: Make it executable and run it**
 
 Run: `chmod +x /Users/marcel/Code/dotfiles/install.sh && /Users/marcel/Code/dotfiles/install.sh`
-Expected: brew installs the formulae/casks (several minutes on first run); exit code 0.
+Expected: `brew bundle` installs the new formulae/casks (several minutes on first run; already-installed ones like neovim print `Using neovim`); exit code 0.
 
-- [ ] **Step 3: Verify idempotency and installs**
+- [ ] **Step 4: Verify idempotency and installs**
 
 Run: `/Users/marcel/Code/dotfiles/install.sh && which fzf zoxide eza bat fd just lazygit delta starship && ls /Applications/Ghostty.app >/dev/null && echo APP-OK`
-Expected: second run produces no `brew install` output; all `which` lines print `/opt/homebrew/bin/...`; final line `APP-OK`.
+Expected: second run prints only `Using ...` lines and finishes in seconds; all `which` lines print `/opt/homebrew/bin/...`; final line `APP-OK`.
 
 Note: `rg` may resolve to a Claude Code shell shim in this session — verify the real binary with `ls /opt/homebrew/bin/rg` instead of `which rg`.
 
-- [ ] **Step 4: Commit**
+- [ ] **Step 5: Commit**
 
 ```bash
 cd /Users/marcel/Code/dotfiles
-git add install.sh
-git commit -m "feat: install script with brew packages and symlink helper"
+git add Brewfile install.sh
+git commit -m "feat: curated Brewfile and install script with symlink helper"
 ```
 
 ---
