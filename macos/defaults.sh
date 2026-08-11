@@ -1,8 +1,27 @@
 #!/usr/bin/env bash
+# macOS system preferences. Run manually on a new machine (needs sudo,
+# restarts Finder/Dock): ./macos/defaults.sh
 # Inspired by https://github.com/mathiasbynens/dotfiles
 
 # Ask for the administrator password upfront
 sudo -v
+
+###############################################################################
+# Keyboard                                                                    #
+###############################################################################
+
+# Fast key repeat (faster than the System Settings sliders allow).
+# Takes effect after logout/login.
+defaults write NSGlobalDomain InitialKeyRepeat -int 15
+defaults write NSGlobalDomain KeyRepeat -int 2
+
+###############################################################################
+# Screenshots                                                                 #
+###############################################################################
+
+# Save screenshots to ~/Pictures/Screenshots instead of the Desktop
+mkdir -p "$HOME/Pictures/Screenshots"
+defaults write com.apple.screencapture location -string "$HOME/Pictures/Screenshots"
 
 ###############################################################################
 # General UI/UX                                                               #
@@ -15,8 +34,9 @@ sudo nvram SystemAudioVolume=" "
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
 
-# Disable the “Are you sure you want to open this application?” dialog
-defaults write com.apple.LaunchServices LSQuarantine -bool false
+# Disable the “Are you sure you want to open this application?” dialog.
+# Off by default: this weakens Gatekeeper — uncomment only if you accept that.
+# defaults write com.apple.LaunchServices LSQuarantine -bool false
 
 ###############################################################################
 # Finder                                                                      #
@@ -74,9 +94,6 @@ defaults write com.apple.dock autohide -bool true
 defaults write com.apple.Safari IncludeDevelopMenu -bool true
 defaults write com.apple.Safari.SandboxBroker ShowDevelopMenu -bool true
 
-# Enable “Do Not Track”
-defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true
-
 # Update extensions automatically
 defaults write com.apple.Safari InstallExtensionUpdatesAutomatically -bool true
 
@@ -117,7 +134,8 @@ defaults write com.apple.commerce AutoUpdate -bool true
 for app in "Dock" \
 	"Finder" \
 	"Mail" \
-	"Safari"; do
+	"Safari" \
+	"SystemUIServer"; do
 	killall "${app}" &> /dev/null
 done
 echo "Done. Note that some of these changes require a logout/restart to take effect."

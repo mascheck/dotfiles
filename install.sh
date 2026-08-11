@@ -48,3 +48,5 @@ fi
 if ! git config --global --get-all include.path | grep -q "delta.gitconfig"; then
   git config --global --add include.path "$DOTFILES/git/delta.gitconfig"
 fi
+
+echo "done. optional: run ./macos/defaults.sh for system preferences (needs sudo, restarts Finder/Dock)"
