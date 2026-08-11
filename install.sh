@@ -20,3 +20,5 @@ brew bundle --file "$DOTFILES/Brewfile"
 
 # --- symlinks ---
 link "$DOTFILES/ghostty/config" "$HOME/.config/ghostty/config"
+link "$DOTFILES/zsh/.zshrc" "$HOME/.config/zsh/.zshrc"
+link "$DOTFILES/starship/starship.toml" "$HOME/.config/starship.toml"
