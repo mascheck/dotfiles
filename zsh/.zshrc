@@ -31,6 +31,9 @@ SAVEHIST=50000
 setopt SHARE_HISTORY HIST_IGNORE_ALL_DUPS HIST_REDUCE_BLANKS
 
 bindkey -e
+# Alt+arrow word jumps (Ghostty sends xterm-style modified arrows)
+bindkey '^[[1;3D' backward-word
+bindkey '^[[1;3C' forward-word
 
 # --- env parity with the legacy ~/.zshrc (kept in sync manually) ---
 [ -f "$HOME/.deno/env" ] && . "$HOME/.deno/env"

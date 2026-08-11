@@ -6,12 +6,9 @@ theme = Catppuccin Mocha
 font-family = JetBrainsMono Nerd Font
 font-size = 13
 
-# Mac-style word/line editing at the shell prompt, without macos-option-as-alt
-# (Option must stay free for @ { [ ~ on German layouts). These send the escape
-# sequences zsh's emacs keymap expects.
-keybind = alt+backspace=text:\x1b\x7f
-keybind = alt+left=text:\x1bb
-keybind = alt+right=text:\x1bf
+# Left Option is Meta (word editing, alt-d, alt-. etc.); right Option keeps
+# dead keys for special characters. Cmd gets mac-style line editing.
+macos-option-as-alt = left
 keybind = cmd+backspace=text:\x15
 keybind = cmd+left=text:\x01
 keybind = cmd+right=text:\x05
