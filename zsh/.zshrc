@@ -15,6 +15,7 @@ fi
 source "$ZINIT_HOME/zinit.zsh"
 
 # completions must be initialized before fzf-tab
+fpath=("$HOME/.zsh/completions" $fpath)
 autoload -Uz compinit && compinit
 
 # fzf-tab first, syntax highlighting last (both wrap ZLE widgets)
@@ -36,6 +37,7 @@ bindkey -e
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$PATH:$HOME/.pub-cache/bin"
+export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
 command -v rbenv >/dev/null && eval "$(rbenv init - zsh)"
 export JAVA_HOME="$(/usr/libexec/java_home -v 21 2>/dev/null)"
 

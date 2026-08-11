@@ -30,12 +30,13 @@ link "$DOTFILES/lazygit/config.yml" "$HOME/Library/Application Support/lazygit/c
 BAT_THEME_DIR="$(bat --config-dir)/themes"
 if [ ! -f "$BAT_THEME_DIR/Catppuccin Mocha.tmTheme" ]; then
   mkdir -p "$BAT_THEME_DIR"
-  curl -fsSL -o "$BAT_THEME_DIR/Catppuccin Mocha.tmTheme" \
+  curl -fsSL -o "$BAT_THEME_DIR/Catppuccin Mocha.tmTheme.tmp" \
     "https://raw.githubusercontent.com/catppuccin/bat/main/themes/Catppuccin%20Mocha.tmTheme"
+  mv "$BAT_THEME_DIR/Catppuccin Mocha.tmTheme.tmp" "$BAT_THEME_DIR/Catppuccin Mocha.tmTheme"
   bat cache --build
 fi
 
 # delta as git pager — the one intentionally global change (revert: git config --global --unset include.path)
 if ! git config --global --get-all include.path | grep -q "delta.gitconfig"; then
-  git config --global include.path "$DOTFILES/git/delta.gitconfig"
+  git config --global --add include.path "$DOTFILES/git/delta.gitconfig"
 fi
