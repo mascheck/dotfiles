@@ -6,4 +6,4 @@ brew install wget
 brew install --cask 1password
 brew install --cask brave-browser
 brew install --cask obsidian
-
+brew install --cask signal
