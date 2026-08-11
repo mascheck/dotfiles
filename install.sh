@@ -19,3 +19,4 @@ link() {
 brew bundle --file "$DOTFILES/Brewfile"
 
 # --- symlinks ---
+link "$DOTFILES/ghostty/config" "$HOME/.config/ghostty/config"

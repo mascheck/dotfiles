@@ -1,0 +1,7 @@
+# Ghostty is the only entry point to the new setup: it launches zsh with
+# ZDOTDIR pointing at the parallel config. iTerm2 keeps using ~/.zshrc.
+command = /usr/bin/env ZDOTDIR=/Users/marcel/.config/zsh /bin/zsh --login
+
+theme = Catppuccin Mocha
+font-family = JetBrainsMono Nerd Font
+font-size = 13
