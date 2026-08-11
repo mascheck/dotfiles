@@ -21,6 +21,5 @@ brew "docker"
 brew "wget"
 
 # Apps
-cask "1password"
 cask "brave-browser"
 cask "signal"
