@@ -23,3 +23,19 @@ link "$DOTFILES/ghostty/config" "$HOME/.config/ghostty/config"
 link "$DOTFILES/zsh/.zshrc" "$HOME/.config/zsh/.zshrc"
 link "$DOTFILES/starship/starship.toml" "$HOME/.config/starship.toml"
 link "$DOTFILES/nvim" "$HOME/.config/nvim"
+link "$DOTFILES/bat/config" "$HOME/.config/bat/config"
+link "$DOTFILES/lazygit/config.yml" "$HOME/Library/Application Support/lazygit/config.yml"
+
+# bat catppuccin theme (download once, then build cache)
+BAT_THEME_DIR="$(bat --config-dir)/themes"
+if [ ! -f "$BAT_THEME_DIR/Catppuccin Mocha.tmTheme" ]; then
+  mkdir -p "$BAT_THEME_DIR"
+  curl -fsSL -o "$BAT_THEME_DIR/Catppuccin Mocha.tmTheme" \
+    "https://raw.githubusercontent.com/catppuccin/bat/main/themes/Catppuccin%20Mocha.tmTheme"
+  bat cache --build
+fi
+
+# delta as git pager — the one intentionally global change (revert: git config --global --unset include.path)
+if ! git config --global --get-all include.path | grep -q "delta.gitconfig"; then
+  git config --global include.path "$DOTFILES/git/delta.gitconfig"
+fi
