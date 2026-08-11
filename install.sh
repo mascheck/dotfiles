@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Sets up the Ghostty-scoped terminal environment. Idempotent; safe to re-run.
+# Sets up the machine from scratch: Homebrew, packages, apps, terminal config.
+# Idempotent; safe to re-run.
 # Legacy setup (iTerm2, ~/.zshrc, oh-my-zsh, p10k) is intentionally untouched.
 set -euo pipefail
 
@@ -15,6 +16,13 @@ link() {
   ln -sfn "$src" "$dst"
   echo "linked: $dst -> $src"
 }
+
+# Homebrew bootstrap (fresh machine: installer also sets up Xcode CLT)
+if ! command -v brew >/dev/null 2>&1 && [ ! -x /opt/homebrew/bin/brew ]; then
+  echo "installing Homebrew"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 brew bundle --file "$DOTFILES/Brewfile"
 
