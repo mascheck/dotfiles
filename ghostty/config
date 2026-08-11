@@ -9,9 +9,9 @@ font-size = 13
 # Left Option is Meta (word editing, alt-d, alt-. etc.); right Option keeps
 # dead keys for special characters. Cmd gets mac-style line editing.
 macos-option-as-alt = left
-# ^W instead of ESC+DEL: same effect in zsh, but also understood by TUIs
-# (e.g. herdr) that don't bind ESC+Backspace
-keybind = alt+backspace=text:\x17
+# No alt+backspace keybind here on purpose: apps using the kitty keyboard
+# protocol (e.g. Claude Code) must receive the real key; zsh handles the
+# option-as-alt ESC+DEL natively.
 keybind = cmd+backspace=text:\x15
 keybind = cmd+left=text:\x01
 keybind = cmd+right=text:\x05
