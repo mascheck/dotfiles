@@ -2,7 +2,13 @@
 # ZDOTDIR pointing at the parallel config. iTerm2 keeps using ~/.zshrc.
 command = /usr/bin/env ZDOTDIR=/Users/marcel/.config/zsh /bin/zsh --login
 
-theme = Catppuccin Mocha
+theme = dark:Xcode Dark,light:Xcode Light
+
+# Grey app icon; screen gradient matches the Xcode Dark background
+macos-icon = custom-style
+macos-icon-frame = plastic
+macos-icon-ghost-color = #9a9ca3
+macos-icon-screen-color = #1c1d21,#292a30
 font-family = JetBrainsMono Nerd Font
 font-size = 13
 
