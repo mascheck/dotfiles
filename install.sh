@@ -26,6 +26,12 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 
 brew bundle --file "$DOTFILES/Brewfile"
 
+# Claude Code ships its own installer (no Homebrew package); it self-updates afterwards
+if ! command -v claude >/dev/null 2>&1; then
+  echo "installing Claude Code"
+  curl -fsSL https://claude.ai/install.sh | bash
+fi
+
 # --- symlinks ---
 link "$DOTFILES/ghostty/config" "$HOME/.config/ghostty/config"
 link "$DOTFILES/zsh/.zshrc" "$HOME/.config/zsh/.zshrc"
@@ -33,6 +39,7 @@ link "$DOTFILES/starship/starship.toml" "$HOME/.config/starship.toml"
 link "$DOTFILES/nvim" "$HOME/.config/nvim"
 link "$DOTFILES/bat/config" "$HOME/.config/bat/config"
 link "$DOTFILES/lazygit/config.yml" "$HOME/Library/Application Support/lazygit/config.yml"
+link "$DOTFILES/claude/settings.json" "$HOME/.claude/settings.json"
 
 # bat catppuccin theme (download once, then build cache)
 BAT_THEME_DIR="$(bat --config-dir)/themes"
